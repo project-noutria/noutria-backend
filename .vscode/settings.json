@@ -7,4 +7,7 @@
     ],
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "git.ignoreLimitWarning": true,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
 }
