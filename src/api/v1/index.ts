@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 /* eslint-disable @typescript-eslint/no-namespace */
+import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import passport from "passport";
@@ -11,8 +12,10 @@ import { CustomRequest } from "./utils/interface";
 import router from "./routes/index";
 import models from "./models";
 import database from "../config/database";
+dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(cors());
@@ -50,10 +53,13 @@ app.get("/", (req, res) => {
   res.send(`Hello, ${config.APP_NAME}`);
 });
 
+// Catch all undefined routes 
 app.use((req, res) => {
   return res.status(404).json({ error: "Invalid Route" });
 });
-app.listen(3000, async () => {
+
+// Start the server 
+app.listen(PORT, async () => {
   await database.connect();
-  console.log("Server is running on port 3000");
+  console.log(`Server is running on port ${PORT}`);
 });
