@@ -4,7 +4,7 @@ import isEmpty from "lodash";
 dotenv.config();
 const config = {
   PORT: process.env.PORT,
-  MONGO_URL: process.env.MONGO_URL,
+  MONGO_URL: process.env.MONGO_URL, 
   APP_NAME: process.env.APP_NAME,
   JWT_SECRET: process.env.JWT_SECRET,
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID as string,
