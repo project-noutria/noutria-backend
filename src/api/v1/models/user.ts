@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
 import {
   IUser, Role, Goal, Gender, Preferences
-} from "../utils/interface";
+} from "../utils/interface"; 
 
 const userSchema = new Schema(
   {
