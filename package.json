@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run build && nodemon src/api/v1/index.ts",
-    "start": "node dist/api/v1/index.js",
+    "start": "npm run build && node dist/api/v1/index.js",
     "build": "tsc"
   },
   "keywords": [],

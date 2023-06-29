@@ -29,7 +29,7 @@ app.use(session({
   cookie: { secure: true }
 }));
 
-app.use(reqLogger);
+app.use(reqLogger); 
 app.use("/api/v1", router);
 
 declare global {
