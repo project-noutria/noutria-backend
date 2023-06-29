@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run build && nodemon src/api/v1/index.ts",
-    "start": "npm run build && node dist/api/v1/index.js",
-    "build": "tsc"
+    "start": "node dist/v1/index.js",
+    "build": "tsc",
+    "postinstall": "tsc"
   },
   "keywords": [],
   "author": "",
