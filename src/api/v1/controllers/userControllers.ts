@@ -5,11 +5,11 @@ import { successResponse, errorResponse, handleError } from "../utils/responses"
 import models from "../models";
 import { validatesigninUser, validatesignupUser } from "../validations/user";
 // import { IUser } from "../utils/interface";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import jwtHelper from "../utils/jwt";
 
 const { generateToken } = jwtHelper;
- 
+
 export const createUser = async (req: Request, res: Response) => {
   try {
     const valid = validatesignupUser(req.body);
