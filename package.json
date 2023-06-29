@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "npm run build && nodemon src/api/v1/index.ts",
     "start": "node dist/api/v1/index.js",
-    "build": "tsc"
+    "build": "tsc",
+    "postinstall": "tsc"
   },
   "keywords": [],
   "author": "",
