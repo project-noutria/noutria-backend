@@ -7,5 +7,3 @@ router.post("/", createMeal);
 router.get("/", getAllMeals);
 
 export default router;
-
-
