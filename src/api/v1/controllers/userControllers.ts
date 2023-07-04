@@ -28,10 +28,14 @@ export const createUser = async (req: Request, res: Response) => {
       return errorResponse(res, 501, "Phone number has been registered by another user.");
     }
     const passwordHash = await bcrypt.hash(password, 10);
-    await models.User.create({
+    const user = await models.User.create({
       name, email, phone, password: passwordHash
     });
-    return successResponse(res, 201, "You have successfully created a new account");
+    const userDetails = {
+      _id: user._id, email, name: user.name, phone: user.phone, role: user.role, active: user.active
+    };
+
+    return successResponse(res, 201, "You have successfully created a new account", userDetails);
   } catch (error) {
     handleError(error, req);
     return errorResponse(res, 500, "Server error.");
@@ -49,21 +53,23 @@ export const signinUser = async (req: Request, res:Response) => {
     if (!user) {
       return errorResponse(res, 409, "This user does not exist. Please sign up");
     }
+    if (!user.active) {
+      return errorResponse(res, 403, "User account temporarily on hold, contact admin");
+    }
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
       return errorResponse(res, 403, "Invalid credentials. Password incorrect");
     }
-    const { _id, phone } = user;
-    const token = await generateToken({ _id, email, phone });
-    console.log(token);
-    if (user.active !== true) {
-      return errorResponse(res, 403, "User account temporarily on hold, contact admin");
-    }
+    const userDetails = {
+      _id: user._id, email, name: user.name, phone: user.phone, role: user.role, active: user.active
+    };
+    const token = await generateToken({ _id: user._id, email, phone: user.phone });
+
     return successResponse(
       res,
       200,
       "User Logged in Successfully.",
-      { token, user }
+      { token, userDetails }
     );
   } catch (error) {
     handleError(error, req);
