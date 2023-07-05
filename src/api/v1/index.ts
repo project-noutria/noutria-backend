@@ -12,6 +12,7 @@ import { CustomRequest } from "./utils/interface";
 import router from "./routes/index";
 import models from "./models";
 import database from "../config/database";
+
 dotenv.config();
 
 const app = express();
@@ -29,7 +30,7 @@ app.use(session({
   cookie: { secure: true }
 }));
 
-app.use(reqLogger); 
+app.use(reqLogger);
 app.use("/api/v1", router);
 
 declare global {
@@ -53,12 +54,12 @@ app.get("/", (req, res) => {
   res.send(`Hello, ${config.APP_NAME}`);
 });
 
-// Catch all undefined routes 
+// Catch all undefined routes
 app.use((req, res) => {
   return res.status(404).json({ error: "Invalid Route" });
 });
 
-// Start the server 
+// Start the server
 app.listen(PORT, async () => {
   await database.connect();
   console.log(`Server is running on port ${PORT}`);
