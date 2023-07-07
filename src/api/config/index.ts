@@ -6,7 +6,7 @@ const config = {
   PORT: process.env.PORT,
   MONGO_URL: process.env.MONGO_URL,
   APP_NAME: process.env.APP_NAME,
-  JWT_SECRET: process.env.JWT_SECRET,
+  JWT_SECRET: process.env.JWT_SECRET as string,
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID as string,
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET as string,
   GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL,
