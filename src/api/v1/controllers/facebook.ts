@@ -1,20 +1,21 @@
 import passport from "passport";
-import { Strategy } from "passport-google-oauth20";
-import config from "../../config/index";
-import { IUser } from "../utils/interface";
+import { Strategy as FacebookStrategy } from "passport-facebook";
+import config from "../../config";
 import models from "../models";
+import { IUser } from "../utils/interface";
 import jwtHelper from "../utils/jwt";
 
 const { generateToken } = jwtHelper;
 
 passport.use(
-  new Strategy(
+  new FacebookStrategy(
     {
-      clientID: config.GOOGLE_CLIENT_ID,
-      clientSecret: config.GOOGLE_CLIENT_SECRET,
-      callbackURL: config.GOOGLE_CALLBACK_URL
+      clientID: config.FACEBOOK_APP_ID,
+      clientSecret: config.FACEBOOK_APP_SECRET,
+      callbackURL: config.FACEBOOK_CALLBACK_URL,
     },
-    async (accessToken: string, refreshToken:string, profile, done) => {
+    async (accessToken, refreshToken, profile, done) => {
+      console.log(profile);
       const user: IUser | null = await models.User.findOne({ email: profile.emails?.[0].value, });
       if (user) {
         const { _id, email } = user;
@@ -50,4 +51,5 @@ passport.use(
       }
     }
   )
+
 );

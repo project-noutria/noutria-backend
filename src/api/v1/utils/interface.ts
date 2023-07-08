@@ -1,30 +1,30 @@
-import { Document } from 'mongoose'
+import { Document } from "mongoose";
 
 export enum Role {
-  ADMIN = 'admin',
-  USER = 'user'
+  ADMIN = "admin",
+  USER = "user"
 }
 export enum Goal {
-  LOSE_WEIGHT = 'lose Weight',
-  EAT_HEALTHY = 'eat Healthy',
-  STAY_FIT = 'stay fit',
-  GAIN_MUSCLE = 'gain Muscle'
+  LOSE_WEIGHT = "lose Weight",
+  EAT_HEALTHY = "eat Healthy",
+  STAY_FIT = "stay fit",
+  GAIN_MUSCLE = "gain Muscle"
 }
 export enum Gender {
-  MALE = 'Male',
-  FEMALE = 'Female',
-  OTHER = 'other'
+  MALE = "Male",
+  FEMALE = "Female",
+  OTHER = "other"
 }
 export enum Preferences {
-  FISH = 'fish',
-  DAIRY = 'diary',
-  PROTEIN = 'protein',
-  VEGETABLES = 'vegetables',
-  ORGANIC = 'organic',
-  VEGAN = 'vegan',
-  SNACK = 'snack',
-  FRUITS = 'fruits',
-  ALCOHOL = 'alcohol'
+  FISH = "fish",
+  DAIRY = "diary",
+  PROTEIN = "protein",
+  VEGETABLES = "vegetables",
+  ORGANIC = "organic",
+  VEGAN = "vegan",
+  SNACK = "snack",
+  FRUITS = "fruits",
+  ALCOHOL = "alcohol"
 }
 
 export interface IUser {
