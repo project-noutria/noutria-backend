@@ -15,7 +15,7 @@ export const getStoresAround = async (req: Request, res: Response) => {
     const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=${radius}&type=${placeType}&key=${apiKey}`);
     
     // Extract the data from the response
-    const responseData = response.data;
+    const responseData = response.data; 
 
     // Send success response now
     return res.status(201).send({
