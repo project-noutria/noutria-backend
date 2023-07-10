@@ -80,7 +80,6 @@ export const signinUser = async (req: Request, res:Response) => {
 export const registration = async (req: Request, res: Response) => {
   try {
     const { error } = validateRegistration(req.body);
-    console.log(error);
     if (error) {
       return errorResponse(res, 400, error.message);
     }
