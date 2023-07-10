@@ -45,6 +45,15 @@ export interface IUser {
   createdAt: Date
   updatedAt: Date
 }
+
+export interface IRegistration {
+  gender: Gender
+  age: number
+  weight: number
+  height: number
+  preferences: Preferences
+  goal: Goal
+}
 export interface CustomRequest {
   profile: IUser
   file: object

@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { successResponse, errorResponse, handleError } from "../utils/responses";
 import models from "../models";
-import { validatesigninUser, validatesignupUser } from "../validations/user";
+import { validatesigninUser, validatesignupUser, validateRegistration } from "../validations/user";
 // import { IUser } from "../utils/interface";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import jwtHelper from "../utils/jwt";
@@ -74,5 +74,25 @@ export const signinUser = async (req: Request, res:Response) => {
   } catch (error) {
     handleError(error, req);
     return errorResponse(res, 500, "Server error.");
+  }
+};
+
+export const registration = async (req: Request, res: Response) => {
+  try {
+    const { error } = validateRegistration(req.body);
+    if (error) {
+      return errorResponse(res, 400, error.message);
+    }
+    const {
+      gender, age, weight, height, preferences, goal
+    } = req.body;
+    const { _id } = req.profile;
+    const user = await models.User.findByIdAndUpdate(_id, {
+      gender, age, weight, height, preferences, goal
+    }).select("-password");
+    return successResponse(res, 200, "Your profile has been succesfully setup", user);
+  } catch (error) {
+    handleError(error, req);
+    return errorResponse(res, 500, (error as Error).message);
   }
 };
