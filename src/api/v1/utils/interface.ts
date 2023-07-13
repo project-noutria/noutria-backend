@@ -5,14 +5,14 @@ export enum Role {
   USER = "user"
 }
 export enum Goal {
-  LOSE_WEIGHT = "lose Weight",
-  EAT_HEALTHY = "eat Healthy",
+  LOOSE_WEIGHT = "loose weight",
+  EAT_HEALTHY = "eat healthy",
   STAY_FIT = "stay fit",
-  GAIN_MUSCLE = "gain Muscle"
+  GAIN_MUSCLE = "gain muscle"
 }
 export enum Gender {
-  MALE = "Male",
-  FEMALE = "Female",
+  MALE = "male",
+  FEMALE = "female",
   OTHER = "other"
 }
 export enum Preferences {
@@ -44,6 +44,15 @@ export interface IUser {
   goal?: Goal
   createdAt: Date
   updatedAt: Date
+}
+
+export interface IRegistration {
+  gender: Gender
+  age: number
+  weight: number
+  height: number
+  preferences: Preferences
+  goal: Goal
 }
 export interface CustomRequest {
   profile: IUser
