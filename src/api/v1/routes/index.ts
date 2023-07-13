@@ -5,13 +5,16 @@ import mealRoutes from "./mealRoutes";
 import restaurantRoutes from "./restaurantRoutes";
 import storeRoutes from "./storeRoutes";
 import facebookRoutes from "./facebookRoutes";
+import recipesearchRoutes from "./recipesearchRoutes";
 
 const router = Router();
 
 router.use("/users", userRoutes);
-// router.use("/google", googleRoutes);
-// router.use("/facebook", facebookRoutes);
+router.use("/google", googleRoutes);
+router.use("/facebook", facebookRoutes);
 router.use("/meal", mealRoutes);
 router.use("/restaurant", restaurantRoutes);
 router.use("/store", storeRoutes);
+router.use("/recipes", recipesearchRoutes);
+
 export default router;
