@@ -14,7 +14,9 @@ const config = {
   FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID as string,
   FACEBOOK_APP_SECRET: process.env.FACEBOOK_APP_SECRET as string,
   FACEBOOK_CALLBACK_URL: process.env.FACEBOOK_CALLBACK_URL as string,
-  GOOGLE_PLACES_APIKEY: process.env.GOOGLE_PLACES_APIKEY as string
+  GOOGLE_PLACES_APIKEY: process.env.GOOGLE_PLACES_APIKEY as string,
+  EDAMAM_APP_ID: process.env.EDAMAM_APP_ID as string,
+  EDAMAM_APP_KEY: process.env.EDAMAM_APP_KEY as string
 };
 
 const absentConfig = Object.entries(config)
