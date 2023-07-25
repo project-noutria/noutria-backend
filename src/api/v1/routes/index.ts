@@ -6,6 +6,7 @@ import restaurantRoutes from "./restaurantRoutes";
 import storeRoutes from "./storeRoutes";
 import facebookRoutes from "./facebookRoutes";
 import recipesearchRoutes from "./recipesearchRoutes";
+import mealSuggestionRoutes from "./mealSuggestionRoutes";
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use("/meal", mealRoutes);
 router.use("/restaurant", restaurantRoutes);
 router.use("/store", storeRoutes);
 router.use("/recipes", recipesearchRoutes);
+router.use("/meal-suggestion", mealSuggestionRoutes);
 
 export default router;
