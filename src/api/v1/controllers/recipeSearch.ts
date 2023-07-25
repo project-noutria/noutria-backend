@@ -16,4 +16,4 @@ const findRecipe = async (req: Request, res: Response) => {
   }
 };
 
-export default findRecipe;
+export default findRecipe; 
