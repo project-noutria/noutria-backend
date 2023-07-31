@@ -29,5 +29,30 @@ const verifyUser = async (req: Request, res: Response, next: NextFunction) => {
     return errorResponse(res, 500, (error as Error).message);
   }
 };
+const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    if (req.headers && req.headers.authorization) {
+      const parts = req.headers.authorization.split(" ");
+      if (parts.length === 2) {
+        const scheme = parts[0];
+        const credentials = parts[1];
+        if (/^Bearer$/i.test(scheme)) {
+          const token = credentials;
+          const decoded: any = await jwt.verify(token, config.JWT_SECRET as string);
 
-export default verifyUser;
+          const user = await models.User.findById(decoded._id);
+          if (!user) return errorResponse(res, 404, "User account not found");
+          req.user = user;
+          return next();
+        }
+      } else {
+        return errorResponse(res, 401, "Invalid authorization format");
+      }
+    } else {
+      return errorResponse(res, 401, "Authorization not found");
+    }
+  } catch (error: any) {
+    return errorResponse(res, 500, error.message);
+  }
+};
+export { verifyUser, verifyToken };

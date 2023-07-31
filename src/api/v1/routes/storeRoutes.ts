@@ -1,8 +1,8 @@
-import { Router } from 'express'
-import { getStoresAround } from '../controllers/store'
+import { Router } from "express";
+import { getStoresAround } from "../controllers/store";
 
-const router = Router()
+const router = Router();
 
-router.get('/get-stores-around', getStoresAround)
+router.get("/get-stores-around", getStoresAround);
 
-export default router
+export default router;

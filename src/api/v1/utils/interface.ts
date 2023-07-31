@@ -84,3 +84,12 @@ export interface Restaurant extends Document {
   name: string
   address: string
 }
+
+export interface IOtp {
+  _id?: string
+  email: string
+  token: number
+  expired: boolean
+  createdAt?: Date
+  updatedAt?: Date
+}
