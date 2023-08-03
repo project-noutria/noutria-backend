@@ -4,9 +4,9 @@ import bcrypt from "bcrypt";
 import { successResponse, errorResponse, handleError } from "../utils/responses";
 import models from "../models";
 import { validatesigninUser, validatesignupUser, validateRegistration } from "../validations/user";
-// import { IUser } from "../utils/interface";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import jwtHelper from "../utils/jwt";
+import { IUser, } from "../utils/interface";
+import sendEmail from "../utils/email";
 
 const { generateToken } = jwtHelper;
 
@@ -34,8 +34,12 @@ export const createUser = async (req: Request, res: Response) => {
     const userDetails = {
       _id: user._id, email, name: user.name, phone: user.phone, role: user.role, active: user.active
     };
-
-    return successResponse(res, 201, "You have successfully created a new account", userDetails);
+    const otp = `${Math.floor(100000 + Math.random() * 900000)}`;
+    await models.Otp.create({ email, token: otp });
+    const subject = "User created";
+    const message = `hi, thank you for signing up kindly verify your account with this token ${otp}`;
+    await sendEmail(email, subject, message);
+    return successResponse(res, 201, "Account created successfully, kindly verify your email and login.", userDetails);
   } catch (error) {
     handleError(error, req);
     return errorResponse(res, 500, "Server error.");
@@ -56,6 +60,9 @@ export const signinUser = async (req: Request, res:Response) => {
     if (!user.active) {
       return errorResponse(res, 403, "User account temporarily on hold, contact admin");
     }
+    if (!user.verified) {
+      return errorResponse(res, 409, "Kindly verify your account before logging in.");
+    }
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
       return errorResponse(res, 403, "Invalid credentials. Password incorrect");
@@ -74,6 +81,27 @@ export const signinUser = async (req: Request, res:Response) => {
   } catch (error) {
     handleError(error, req);
     return errorResponse(res, 500, "Server error.");
+  }
+};
+
+export const resendOtp = async (req: Request, res: Response) => {
+  try {
+    // const { email } = req.body;
+    const user: IUser | null = await models.User.findOne(req.body.email);
+    if (!user) { return errorResponse(res, 404, "Email does not exist."); }
+    const otp = `${Math.floor(100000 + Math.random() * 900000)}`;
+    await models.Otp.findOneAndUpdate(req.body.email, { token: otp, expired: false });
+    const subject = "Resend otp";
+    const message = `hi, kindly verify your account with this token ${otp}`;
+    await sendEmail(req.body.email, subject, message);
+    return successResponse(
+      res,
+      201,
+      "A token has been sent to your account for verification."
+    );
+  } catch (error) {
+    handleError(error, req);
+    return errorResponse(res, 500, "Server error");
   }
 };
 
