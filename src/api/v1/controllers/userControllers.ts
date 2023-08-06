@@ -86,11 +86,11 @@ export const signinUser = async (req: Request, res:Response) => {
 
 export const resendOtp = async (req: Request, res: Response) => {
   try {
-    // const { email } = req.body;
-    const user: IUser | null = await models.User.findOne(req.body.email);
+    const { email } = req.body;
+    const user: IUser | null = await models.User.findOne({ email });
     if (!user) { return errorResponse(res, 404, "Email does not exist."); }
     const otp = `${Math.floor(100000 + Math.random() * 900000)}`;
-    await models.Otp.findOneAndUpdate(req.body.email, { token: otp, expired: false });
+    await models.Otp.findOneAndUpdate({ email }, { token: otp, expired: false });
     const subject = "Resend otp";
     const message = `hi, kindly verify your account with this token ${otp}`;
     await sendEmail(req.body.email, subject, message);
