@@ -10,7 +10,7 @@ import sendEmail from "../utils/email";
 
 const { generateToken } = jwtHelper;
 
-export const createUser = async (req: Request, res: Response) => {
+export const createUser = async (req: Request, res: Response) => { 
   try {
     const valid = validatesignupUser(req.body);
     if (valid.error) {
@@ -27,7 +27,7 @@ export const createUser = async (req: Request, res: Response) => {
     if (phoneExists) {
       return errorResponse(res, 501, "Phone number has been registered by another user.");
     }
-    const passwordHash = await bcrypt.hash(password, 10);
+    const passwordHash = await bcrypt.hash(password, 10); 
     const user = await models.User.create({
       name, email, phone, password: passwordHash 
     });
@@ -38,7 +38,7 @@ export const createUser = async (req: Request, res: Response) => {
      const userWithoutPassword: Partial<typeof user>  = {...user.toObject()};
      delete userWithoutPassword.password;
 
-    const otp = `${Math.floor(100000 + Math.random() * 900000)}`;
+    const otp = `${Math.floor(100000 + Math.random() * 900000)}`; 
     await models.Otp.create({ email, token: otp });
     // const subject = "User created";
     // const message = `hi, thank you for signing up kindly verify your account with this token ${otp}`;
