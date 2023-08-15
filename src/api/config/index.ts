@@ -18,7 +18,11 @@ const config = {
   EDAMAM_APP_ID: process.env.EDAMAM_APP_ID as string,
   EDAMAM_APP_KEY: process.env.EDAMAM_APP_KEY as string,
   SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
+<<<<<<< HEAD
   SENDGRID_EMAIL: process.env.SENDGRID_EMAIL
+=======
+  SENDGRID_EMAIL: process.env.SENDGRID_EMAIL 
+>>>>>>> 205b8a0 (disabled email verification upon registeration and login)
 };
 
 const absentConfig = Object.entries(config)

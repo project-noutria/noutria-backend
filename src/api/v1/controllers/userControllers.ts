@@ -29,17 +29,21 @@ export const createUser = async (req: Request, res: Response) => {
     }
     const passwordHash = await bcrypt.hash(password, 10);
     const user = await models.User.create({
-      name, email, phone, password: passwordHash
+      name, email, phone, password: passwordHash 
     });
-    const userDetails = {
-      _id: user._id, email, name: user.name, phone: user.phone, role: user.role, active: user.active
-    };
+    // const userDetails = {
+    //   _id: user._id, email, name: user.name, phone: user.phone, role: user.role, active: user.active
+    // };
+     // Exclude the password field from the user details
+     const userWithoutPassword: Partial<typeof user>  = {...user.toObject()};
+     delete userWithoutPassword.password;
+
     const otp = `${Math.floor(100000 + Math.random() * 900000)}`;
     await models.Otp.create({ email, token: otp });
-    const subject = "User created";
-    const message = `hi, thank you for signing up kindly verify your account with this token ${otp}`;
-    await sendEmail(email, subject, message);
-    return successResponse(res, 201, "Account created successfully, kindly verify your email and login.", userDetails);
+    // const subject = "User created";
+    // const message = `hi, thank you for signing up kindly verify your account with this token ${otp}`;
+    // await sendEmail(email, subject, message);
+    return successResponse(res, 201, "User created successfully!", userWithoutPassword);
   } catch (error) {
     handleError(error, req);
     return errorResponse(res, 500, "Server error.");
@@ -60,9 +64,9 @@ export const signinUser = async (req: Request, res:Response) => {
     if (!user.active) {
       return errorResponse(res, 403, "User account temporarily on hold, contact admin");
     }
-    if (!user.verified) {
-      return errorResponse(res, 409, "Kindly verify your account before logging in.");
-    }
+    // if (!user.verified) {
+    //   return errorResponse(res, 409, "Kindly verify your account before logging in.");
+    // }
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
       return errorResponse(res, 403, "Invalid credentials. Password incorrect");
