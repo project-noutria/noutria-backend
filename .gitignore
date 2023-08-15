@@ -1,4 +1,8 @@
 
+<<<<<<< HEAD
+=======
+node_modules
+>>>>>>> 205b8a0 (disabled email verification upon registeration and login)
 /node_modules
 .env
 dist/

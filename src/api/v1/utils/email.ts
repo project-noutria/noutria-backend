@@ -6,7 +6,7 @@ sgMail.setApiKey(config.SENDGRID_API_KEY as string);
 
 const msg: any = {
   from: `Noutria <${config.SENDGRID_EMAIL}>`,
-  mail_settings: { sandbox_mode: { enable: false } }
+  mail_settings: { sandbox_mode: { enable: false } } 
 };
 
 () => {
